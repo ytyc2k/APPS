@@ -11,9 +11,10 @@ class win(QWidget):
         lay=QGridLayout()
         for i in range(14):
             self.le.append(QLineEdit())
-            lay.addWidget(self.le[i], i / 3, i % 3)
+            lay.addWidget(self.le[i], i / 4, i % 4)
         self.le[0].setText(str(self.A) + 'm')
         self.le[1].setText(str(self.B) + 'm')
+        self.le[2].setEnabled(0)
         self.t3 = QTextEdit()
         lay.addWidget(self.t3,i+1,0,2,0)
         lay.addWidget(b1,i+3,0)
