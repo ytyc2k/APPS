@@ -10,13 +10,13 @@ class Ping(threading.Thread):
         self.ret=0
     def run(self):
         p = Popen(['ping','-n','1',self.ip],shell=True,stdout = PIPE,stderr=PIPE)
-        self.ret=p.stdout.read().decode('gb2312').find('100%')
+        self.ret=p.stdout.read().decode('gb2312').find('Minimum')
         return self.ret
 
 class win(QWidget):
-    def __init__(self,A):
+    def __init__(self,AA):
         super(win, self).__init__()
-        self.A=A
+        self.A=AA
         self.setWindowFlags(Qt.WindowCloseButtonHint)
         self.setWindowTitle('PING')
         self.lay=QGridLayout()
@@ -42,8 +42,8 @@ class win(QWidget):
         self.move(zb1,zb2)
 
     def aaa(self):
-        pp=Ping(self.A[self.k][2]);pp.start();pp.join()
-        if pp.ret>0:
+        pp=Ping(self.A[self.k].split(',')[2]);pp.start();pp.join()
+        if pp.ret<=0:
             self.le[self.k].setStyleSheet("QPushButton {background-color: #ff0000 }")
         else:
             self.le[self.k].setStyleSheet("QPushButton {background-color: #00ff00 }" "QPushButton:pressed { background-color: yellow }")
@@ -74,9 +74,8 @@ class hello(QWidget):
         if QKeyEvent.key()==Qt.Key_Escape:
             self.close()
 
-AA=[]
 with open('branch2.txt', 'r') as f:
-    AA=f.read().split('\n')
+    AA=f.read().splitlines() # AA = ['731999,MyLocalIP,192.168.1.1']
 app = QApplication([])
 w = win(AA)
 w.show()
