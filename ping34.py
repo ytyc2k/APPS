@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt,QTimer
 import threading
 from subprocess import Popen,PIPE
 
@@ -14,10 +14,9 @@ class Ping(threading.Thread):
         return self.ret
 
 class win(QWidget):
-    def __init__(self,A,B):
+    def __init__(self,A):
         super(win, self).__init__()
         self.A=A
-        self.B=B
         self.setWindowFlags(Qt.WindowCloseButtonHint)
         self.setWindowTitle('PING')
         self.lay=QGridLayout()
@@ -27,7 +26,7 @@ class win(QWidget):
         for i in range(len(self.A)):
             self.le.append(QPushButton())
             self.lay.addWidget(self.le[i],i/7,i%7)
-            self.le[i].setText('\n'.join(self.A[i]))
+            self.le[i].setText(self.A[i].replace(',','\n'))
             self.le[i].clicked.connect(self.bbb)
         self.setLayout(self.lay)
 
@@ -58,7 +57,7 @@ class win(QWidget):
 
     def bbb(self):
         self.win2.setWindowModality(Qt.ApplicationModal)
-        self.win2.t1.setText(self.B[self.le.index(self.sender())])
+        self.win2.t1.setText(self.A[self.le.index(self.sender())])
         self.win2.show()
 
 class hello(QWidget):
@@ -75,3 +74,11 @@ class hello(QWidget):
         if QKeyEvent.key()==Qt.Key_Escape:
             self.close()
 
+AA=[]
+with open('branch2.txt', 'r') as f:
+    AA=f.read().split('\n')
+app = QApplication([])
+w = win(AA)
+w.show()
+w.center()
+app.exec_()
