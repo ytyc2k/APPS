@@ -1,7 +1,7 @@
 # coding: cp936
 __author__ = 'YangTong'
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 import threading
 from subprocess import Popen,PIPE
 import time
@@ -74,11 +74,12 @@ class hello(QWidget):
             self.close()
 
 from openpyxl import load_workbook
-work_book=load_workbook("//21.12.121.64/信息技术部共享/yangtong/系统应用/服务器/服务器清单.xlsx")
+work_book=load_workbook("服务器清单.xlsx")
 work_sheet=work_book.get_sheet_by_name("Sheet1")
 tmp=[]
 s=0
-for i in range(len(work_sheet.rows)):
+print(work_sheet["C10"].value )
+for i in range(work_sheet.max_row):
     tmp.append([str(j[i].value) for j in work_sheet.columns])
     s=s+len(tmp[i][6].split())
 

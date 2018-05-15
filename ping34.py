@@ -42,7 +42,8 @@ class win(QWidget):
         self.move(zb1,zb2)
 
     def aaa(self):
-        pp=Ping(self.A[self.k].split(',')[2]);pp.start();pp.join()
+        CurrentIp=self.A[self.k].split(',')[2]
+        pp=Ping(CurrentIp);pp.start();pp.join()
         if pp.ret<=0:
             self.le[self.k].setStyleSheet("QPushButton {background-color: #ff0000 }")
         else:

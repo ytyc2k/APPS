@@ -1,5 +1,6 @@
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import QRegExpValidator
 class win(QWidget):
     def __init__(self):
         super(win, self).__init__()
@@ -14,7 +15,7 @@ class win(QWidget):
             self.le.append(QLineEdit())
             lay.addWidget(self.le[i],[i,i-1][i%2],i%2)
             self.le[i].setValidator(QRegExpValidator(QRegExp("[0-9]?\d?\d(\.\d{1,2})?")))
-            self.connect(self.le[i],SIGNAL("returnPressed()"),self.ccc)
+            self.le[i].returnPressed.connect(self.ccc)
         self.t3 = QTextEdit()
         self.t3.setReadOnly(True)
         self.focusNextPrevChild(True)
@@ -22,8 +23,8 @@ class win(QWidget):
         lay.addWidget(b1,i+3,0)
         lay.addWidget(b2,i+3,1)
         self.setLayout(lay)
-        self.connect(b1, SIGNAL("clicked()"), self.aaa)
-        self.connect(b2, SIGNAL("clicked()"), self.close)
+        b1.clicked.connect(self.aaa)
+        b2.clicked.connect(self.close)
     def aaa(self):
         A=[]
         for i in self.le:
