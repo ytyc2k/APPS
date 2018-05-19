@@ -2,8 +2,6 @@
 __author__ = 'YangTong'
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-import threading
-from subprocess import Popen,PIPE
 import time
 
 class bt(QPushButton):
@@ -75,7 +73,7 @@ class hello(QWidget):
 
 from openpyxl import load_workbook
 work_book=load_workbook("服务器清单.xlsx")
-work_sheet=work_book.get_sheet_by_name("Sheet1")
+work_sheet=work_book["Sheet1"]
 tmp=[]
 s=0
 print(work_sheet["C10"].value )
